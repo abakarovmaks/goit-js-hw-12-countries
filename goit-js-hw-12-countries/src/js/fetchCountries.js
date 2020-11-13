@@ -3,3 +3,8 @@ export function fetchCountries(searchQuery) {
     `https://restcountries.eu/rest/v2/name/${searchQuery}`,
   ).then(response => response.json());
 }
+export function fetchAllCountries() {
+  return fetch(`https://restcountries.eu/rest/v2/all`).then(response =>
+    response.json(),
+  );
+}

@@ -1,3 +1,4 @@
 import './styles.css';
-import './js/fetchCountries';
-import countryTemplate from './templates/countryTemplate.hbs';
+import { fetchCountries, fetchAllCountries } from './js/fetchCountries';
+
+import { debounce } from 'lodash';
