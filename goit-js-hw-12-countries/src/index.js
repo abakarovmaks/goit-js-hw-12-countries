@@ -1,14 +1,14 @@
-import './styles.css';
-import './js/infoCountries';
+import './main.css';
+import { Countries } from './js/infoCountries';
 
 const countries = new Countries({
-  inputElem: '#search-panel__input',
-  countriesView: '.countries-view',
+  inputElem: '#search-panel-input',
+  countryView: '.countries-view',
 });
 
 countries.init();
-map.init(countries.currentLatLng);
-setTimeout(() => {}, 300);
-setInterval(() => {
-  map.update(countries.currentLatLng);
-}, 750);
+// map.init(countries.currentLatLng);
+// setTimeout(() => {}, 300);
+// setInterval(() => {
+//   map.update(countries.currentLatLng);
+// }, 750);

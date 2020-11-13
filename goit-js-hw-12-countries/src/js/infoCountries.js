@@ -1,5 +1,7 @@
-import { fetchCountries } from './fetchCountries';
+import fetchCountries from './fetchCountries';
 import countryTemplate from '../templates/countryTemplate.hbs';
+import countriesTemplate from '../templates/countriesTemplate.hbs';
+
 import { debounce } from 'lodash';
 
 export class Countries {
@@ -72,11 +74,7 @@ export class Countries {
   }
 
   listOfCountries(countries) {
-    let htmlString = '<ul class="countries-list">';
-    for (const country of countries) {
-      htmlString += `<li data-alfa3code="${country.alpha3Code}">${country.name} - ${country.nativeName} <img class="countries-flag" src="${country.flag}"></li>`;
-    }
-    this.render(htmlString + '</ul>');
+    this.render(countriesTemplate(countries));
   }
 
   showCountry(country) {
@@ -86,13 +84,13 @@ export class Countries {
 
   currentCountry(country) {
     this.currentCapital = country.capital;
-    this.currentLatLng = { lat: country.latlng[0], lng: country.latlng[1] };
+    // this.currentLatLng = { lat: country.latlng[0], lng: country.latlng[1] };
   }
 
-  render(htmlString, delay = 250) {
+  render(stringHtml, delay = 250) {
     this.viewHide();
     setTimeout(() => {
-      this.refs.view.innerHTML = htmlString;
+      this.refs.view.innerHTML = stringHtml;
       this.viewShow();
     }, delay);
   }
@@ -113,10 +111,10 @@ export class Countries {
     this.currentCapital = value;
   }
 
-  get currentLatLng() {
-    return this.currentLatLng;
-  }
-  set currentLatLng(value) {
-    this.currentLatLng = { lat: value.lat, lng: value.lng };
-  }
+  // get currentLatLng() {
+  //   return this.currentLatLng;
+  // }
+  // set currentLatLng(value) {
+  //   this.currentLatLng = { lat: value.lat, lng: value.lng };
+  // }
 }
