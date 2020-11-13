@@ -1,4 +1,14 @@
 import './styles.css';
-import { fetchCountries, fetchAllCountries } from './js/fetchCountries';
+import './js/infoCountries';
 
-import { debounce } from 'lodash';
+const countries = new Countries({
+  inputElem: '#search-panel__input',
+  countriesView: '.countries-view',
+});
+
+countries.init();
+map.init(countries.currentLatLng);
+setTimeout(() => {}, 300);
+setInterval(() => {
+  map.update(countries.currentLatLng);
+}, 750);

@@ -1,5 +1,6 @@
-import { fetchCountries } from "./fetchCountries";
+import { fetchCountries } from './fetchCountries';
 import countryTemplate from '../templates/countryTemplate.hbs';
+import { debounce } from 'lodash';
 
 export class Countries {
   constructor({ inputElem, countryView }) {
@@ -18,49 +19,47 @@ export class Countries {
     this.refs.input.addEventListener('input', this.debounceHandler);
     this.refs.input.addEventListener('focus', this.debounceHandler);
   }
-}
-
-requestHandler(elem) {
+  requestHandler(elem) {
     if (elem.target.value === '') {
-        return;
+      return;
     }
 
     fetchCountries(elem.target.value)
-        .then(this.recievedHandler)
-        .catch(error => console.log(error));
-}
+      .then(this.recievedHandler)
+      .catch(error => console.log(error));
+  }
 
-recievedHandler(data) {
+  recievedHandler(data) {
     if (data.status === 404) {
-        this.notifyHandler(`${data.status} - ${data.message}`);
-        return;
+      this.notifyHandler(`${data.status} - ${data.message}`);
+      return;
     }
 
     if (data.hasOwnProperty('name')) {
-        this.showCountry(data);
-        return;
+      this.showCountry(data);
+      return;
     }
 
     if (data.length > 10) {
-        this.notifyHandler(`Too many countries found: ${data.length}`);
-        return;
+      this.notifyHandler(`Too many countries found: ${data.length}`);
+      return;
     }
 
     if (data.length === 1) {
-        this.showCountry(data[0]);
-        return;
+      this.showCountry(data[0]);
+      return;
     }
 
     this.listOfCountries(data);
-}
+  }
 
-notifyHandler(
+  notifyHandler(
     text = 'Something is not OK',
     type = 'error',
     title = '',
     delay = 2000,
-) {
-     if (document.body.clientWidth < 400) {
+  ) {
+    if (document.body.clientWidth < 400) {
       PNotify.defaults.width = '280px';
     } else if (document.body.clientWidth < 800) {
       PNotify.defaults.width = '320px';
@@ -70,19 +69,54 @@ notifyHandler(
       text,
       delay,
     });
-}
-  
-listOfCountries(countries) {
-    let htmlString = '<ul class="countries__list">';
+  }
+
+  listOfCountries(countries) {
+    let htmlString = '<ul class="countries-list">';
     for (const country of countries) {
-      htmlString += `<li data-alfa3code="${country.alpha3Code}">${country.name} - ${country.nativeName} <img class="countries__flag" src="${country.flag}"></li>`;
+      htmlString += `<li data-alfa3code="${country.alpha3Code}">${country.name} - ${country.nativeName} <img class="countries-flag" src="${country.flag}"></li>`;
     }
-    this._render(htmlString + '</ul>');
-}
+    this.render(htmlString + '</ul>');
+  }
 
-showCountry(country) {
+  showCountry(country) {
     this.render(countryTemplate(country));
-    this.writeCountry(country);
+    this.currentCountry(country);
+  }
+
+  currentCountry(country) {
+    this.currentCapital = country.capital;
+    this.currentLatLng = { lat: country.latlng[0], lng: country.latlng[1] };
+  }
+
+  render(htmlString, delay = 250) {
+    this.viewHide();
+    setTimeout(() => {
+      this.refs.view.innerHTML = htmlString;
+      this.viewShow();
+    }, delay);
+  }
+
+  viewShow() {
+    this.refs.view.classList.add('countries-view-show');
+  }
+
+  viewHide() {
+    this.refs.view.classList.remove('countries-view-show');
+  }
+
+  get currentCapital() {
+    return this.currentCapital;
+  }
+
+  set currentCapital(value) {
+    this.currentCapital = value;
+  }
+
+  get currentLatLng() {
+    return this.currentLatLng;
+  }
+  set currentLatLng(value) {
+    this.currentLatLng = { lat: value.lat, lng: value.lng };
+  }
 }
-
-
