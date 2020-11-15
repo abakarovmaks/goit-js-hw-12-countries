@@ -1,4 +1,4 @@
-@import './css/modern-normalize.css';
+@import './scss/modern-normalize.scss';
 
 body {
   padding-top: 30px;
@@ -61,12 +61,25 @@ body {
 .country-card {
   display: flex;
   justify-content: center;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 }
 
 .country-card-content {
   margin-right: 50px;
 
   text-align: left;
+
+  @media screen and (max-width: 768px) {
+    margin: 0;
+    text-align: center;
+  }
+
+  @media screen and (min-width: 1200px) {
+    font-size: 20px;
+  }
 }
 
 .country-card-lng {
@@ -75,4 +88,14 @@ body {
 
 .country-card-lng li {
   margin-left: 20px;
+
+  @media screen and (max-width: 768px) {
+    list-style: none;
+  }
+}
+
+.country-card-title {
+  @media screen and (min-width: 1200px) {
+    font-size: 50px;
+  }
 }
