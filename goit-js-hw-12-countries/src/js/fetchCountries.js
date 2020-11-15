@@ -1,10 +1,10 @@
-export default function fetchCountries(searchQuery) {
-  return fetch(
-    `https://restcountries.eu/rest/v2/name/${searchQuery}`,
-  ).then(response => response.json());
+export default { fetchCountries };
+
+const BASE_URL = 'https://restcountries.eu/rest';
+
+function fetchCountries(searchQuery) {
+  return fetch(`${BASE_URL}/v2/name/${searchQuery}`).then(response => {
+    if (response.status === 404) return;
+    return response.json();
+  });
 }
-// export function fetchAllCountries() {
-//   return fetch(`https://restcountries.eu/rest/v2/all`).then(response =>
-//     response.json(),
-//   );
-// }

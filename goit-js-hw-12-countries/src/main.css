@@ -1,17 +1,82 @@
 @import './css/modern-normalize.css';
 
-html {
-  box-sizing: border-box;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
-}
-
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  padding-top: 30px;
+
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+
+  background-color: rgb(206, 206, 206);
+}
+
+.main {
+  margin: 0;
+  margin-bottom: 20px;
+
+  font-size: 42px;
+  line-height: 1.3;
+}
+
+.country-input {
+  margin: 0;
+  padding: 5px;
+
+  font-family: inherit;
+  font-size: 20px;
+  line-height: 1.43;
+
+  border: 5px solid darkorange;
+
+  transition: border 500ms ease-in;
+}
+
+.country-input:hover,
+.country-input:focus {
+  border: 5px solid red;
+}
+
+.pnotify {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.countries-list {
+  padding-left: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.countries-list__item {
+  display: flex;
+  align-items: center;
+
+  margin-bottom: 5px;
+
+  color: darkblue;
+}
+
+.country-name {
+  margin-right: 5px;
+}
+
+.country-card {
+  display: flex;
+  justify-content: center;
+}
+
+.country-card-content {
+  margin-right: 50px;
+
+  text-align: left;
+}
+
+.country-card-languages {
+  padding: 0;
+}
+
+.country-card-languages li {
+  margin-left: 20px;
 }
