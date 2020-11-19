@@ -1,25 +1,29 @@
 import countriesTemplate from '../templates/countriesTemplate.hbs';
 import countryTemplate from '../templates/countryTemplate.hbs';
 import getRefs from './get-refs';
+import { notification } from './notify';
 
 export default { renderMarkup, clearMarkup };
 
 const refs = getRefs();
 
 function renderMarkup(data) {
-  if (data.length === 1) {
+  const { length } = data;
+  if (length < 2) {
     renderCountryCardMarkup(data);
     return;
   }
 
-  if (data.length > 1 && data.length <= 10) {
+  if (length >= 2 && length <= 10) {
     renderCountryListMarkup(data);
     return;
   }
 
-  if (data.length > 10) {
-    clearMarkup();
-    errorHandler.errorTooMany();
+  if (length > 10) {
+    notification(
+      'error',
+      'Too mahy matches found. Please enter a more specific query!',
+    );
     return;
   }
 }

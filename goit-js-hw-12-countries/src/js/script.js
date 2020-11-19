@@ -1,5 +1,5 @@
 import API from './fetchCountries';
-import error from './error';
+import errorNotFound from './error';
 import getRefs from './get-refs';
 import markup from './markup';
 
@@ -19,7 +19,6 @@ function onInput(elem) {
   API.fetchCountries(searchQuery)
     .then(markup.renderMarkup)
     .catch(data => {
-      markup.clearMarkup();
-      error.errorNotFound();
+      errorNotFound();
     });
 }
