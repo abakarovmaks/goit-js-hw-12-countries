@@ -20,6 +20,7 @@ function renderMarkup(data) {
   }
 
   if (length > 10) {
+    clearMarkup();
     notification(
       'error',
       'Too mahy matches found. Please enter a more specific query!',
